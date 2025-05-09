@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Пупукака 4</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="d-flex justify-content-center text-center bg-info-subtle">
+            <h1>Random facts every day</h1>
+        </div>
+        <div class="d-flex justify-content-between py-3">
+            <div class="col bg-primary-subtle">
+               ...
+            </div>
+            <div class="col-10 px-5 py-5">
+                <div class="px-5 py-5">
+                    <div id="fact" class="bg-light rounded"></div>
+                    <output type="text" id="ai-output"> </output>
+                    <button onclick="getFact()">Reload fact</button>
+                    <div id="error" class="mt-3 text-danger"></div>
+                </div>
+            </div>
+            <div class="col bg-primary-subtle">
+                ...
+            </div>
+        </div>
+
+        <script>
+            async function getFact() {
+                try {
+                    const response = await fetch('/get_fact');
+                    const data = await response.json();
+
+                    if (data.error) {
+                        document.getElementById('error').textContent = data.error;
+                        document.getElementById('ai-output').textContent = '';
+                    } else {
+                        document.getElementById('ai-output').textContent = data.fact;
+                        document.getElementById('error').textContent = '';
+                    }
+                } catch (err) {
+                    document.getElementById('error').textContent = 'Ошибка при получении факта';
+                    console.error(err);
+                }
+            }
+
+            window.onload = getFact;
+        </script>
+
+        Сделать список предыдущих фактов
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+    </body>
+</html>
