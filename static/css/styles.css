@@ -1,0 +1,41 @@
+/*
+colors
+#540b0e
+#9e2a2b
+#e09f3e
+#fff3b0
+#335c67
+*/
+
+.header{
+    background-color: #335c67;
+    color: #e09f3e;
+}
+
+.body{
+    background-color: #fff3b0;
+}
+
+.site-border{
+    border: 2px, dashed, #e09f3e;
+}
+
+.fact{
+    background-color: rgb(236, 193, 141);
+    border-block: 1.5px, solid, #540b0e;
+    writing-mode: horizontal-tb;
+}
+
+.reload-button{
+    background-color: rgb(236, 193, 141);
+    color: #540b0e;
+    border: 1px, solid, #540b0e;
+    border-radius: 10px;
+}
+
+.reload-button:active{
+    background-color: rgb(201, 162, 115);
+    color: #540b0e;
+    border: 1px, solid, #540b0e;
+    border-radius: 10px;
+}

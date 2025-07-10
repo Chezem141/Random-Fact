@@ -3,15 +3,14 @@ import re
 from gigachat import GigaChat
 from gigachat.exceptions import GigaChatException
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='./templates', static_folder='./static')
 
 models = {
-    "Max": "GigaChat-Max",
-    "Pro": "GigaChat-Pro",
-    "Lite": "GigaChat"
+    "Max": "GigaChat-2-Max",
+    "Pro": "GigaChat-2-Pro",
+    "Lite": "GigaChat-2"
 
 }
-
 
 def ask_gigachat(question: str, api_key: str, model: str) -> str:
     """Отправляет запрос в GigaChat и возвращает ответ."""

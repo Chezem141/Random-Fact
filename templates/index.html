@@ -4,28 +4,48 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Пупукака 4</title>
+        <link rel="stylesheet" href="../static/css/styles.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
     </head>
-    <body>
-        <div class="d-flex justify-content-center text-center bg-info-subtle">
+    <body class="body">
+        <div class="header d-flex justify-content-center text-center py-2">
             <h1>Random facts every day</h1>
         </div>
-        <div class="d-flex justify-content-between py-3">
-            <div class="col bg-primary-subtle">
+
+        <div class="d-flex justify-content-between">
+            <div class="col site-border">
                ...
             </div>
-            <div class="col-10 px-5 py-5">
+            <div class="col-10 px-2 py-5">
                 <div class="px-5 py-5">
-                    <div id="fact" class="bg-light rounded"></div>
-                    <output type="text" id="ai-output"> </output>
-                    <button onclick="getFact()">Reload fact</button>
-                    <div id="error" class="mt-3 text-danger"></div>
+                    <div id="fact" class="fact rounded mb-2">
+                        <output type="text" id="ai-output" class="py-2 px-3"> </output>
+                    </div>
+                    <div class="d-flex justify-content-center py-4">
+                        <button type="button" class="reload-button py-2 px-3" onclick="getFact()">Reload fact</button>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <div id="error" class="text-danger"></div>
+                    </div>
                 </div>
             </div>
-            <div class="col bg-primary-subtle">
+            <div class="col site-border">
                 ...
             </div>
         </div>
+
+        <div class="d-flex justify-content-between">
+            <div class="col site-border"></div>
+            <div class="col-10 px-2 py-5">
+                <div class="px-5">
+                    Сделать список предыдущих фактов<br>
+                    Чекнуть новое API гигачата, там чёто поменялось
+                </div>
+            </div>
+            <div class="col site-border"></div>
+        </div>
+
+
 
         <script>
             async function getFact() {
@@ -48,8 +68,6 @@
 
             window.onload = getFact;
         </script>
-
-        Сделать список предыдущих фактов
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
     </body>
 </html>
