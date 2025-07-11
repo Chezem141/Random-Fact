@@ -6,7 +6,13 @@
         <title>Пупукака 4</title>
         <link rel="stylesheet" href="../static/css/styles.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
     </head>
+
     <body class="body">
         <div class="header d-flex justify-content-center text-center py-2">
             <h1>Random facts every day</h1>
@@ -16,6 +22,7 @@
             <div class="col site-border">
                ...
             </div>
+            
             <div class="col-10 px-2 py-5">
                 <div class="px-5 py-5">
                     <div id="fact" class="fact rounded mb-2">
@@ -29,6 +36,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col site-border">
                 ...
             </div>
@@ -39,35 +47,14 @@
             <div class="col-10 px-2 py-5">
                 <div class="px-5">
                     Сделать список предыдущих фактов<br>
-                    Чекнуть новое API гигачата, там чёто поменялось
                 </div>
             </div>
             <div class="col site-border"></div>
         </div>
 
+        <script src="../static/backend/getFact.js"></script>
 
-
-        <script>
-            async function getFact() {
-                try {
-                    const response = await fetch('/get_fact');
-                    const data = await response.json();
-
-                    if (data.error) {
-                        document.getElementById('error').textContent = data.error;
-                        document.getElementById('ai-output').textContent = '';
-                    } else {
-                        document.getElementById('ai-output').textContent = data.fact;
-                        document.getElementById('error').textContent = '';
-                    }
-                } catch (err) {
-                    document.getElementById('error').textContent = 'Ошибка при получении факта';
-                    console.error(err);
-                }
-            }
-
-            window.onload = getFact;
-        </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     </body>
 </html>

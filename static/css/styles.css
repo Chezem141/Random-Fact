@@ -14,6 +14,9 @@ colors
 
 .body{
     background-color: #fff3b0;
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 300;
+    font-style: normal;
 }
 
 .site-border{
@@ -24,6 +27,8 @@ colors
     background-color: rgb(236, 193, 141);
     border-block: 1.5px, solid, #540b0e;
     writing-mode: horizontal-tb;
+    font-size: 16px;
+    line-height: 1.6;
 }
 
 .reload-button{
@@ -31,6 +36,7 @@ colors
     color: #540b0e;
     border: 1px, solid, #540b0e;
     border-radius: 10px;
+    font-size: 16px;
 }
 
 .reload-button:active{

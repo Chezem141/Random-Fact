@@ -1,79 +1,8 @@
 from flask import Flask, jsonify
-import re
-from gigachat import GigaChat
-from gigachat.exceptions import GigaChatException
+from openai import OpenAI
+import random
 
 app = Flask(__name__, template_folder='./templates', static_folder='./static')
-
-models = {
-    "Max": "GigaChat-2-Max",
-    "Pro": "GigaChat-2-Pro",
-    "Lite": "GigaChat-2"
-
-}
-
-def ask_gigachat(question: str, api_key: str, model: str) -> str:
-    """Отправляет запрос в GigaChat и возвращает ответ."""
-    try:
-        giga = GigaChat(
-            credentials=api_key,
-            model=model,
-            verify_ssl_certs=False
-        )
-
-        response = giga.chat(question)
-        return response.choices[0].message.content
-
-    except GigaChatException as e:
-        return f"Ошибка GigaChat: {e}"
-    except Exception as e:
-        return f"Общая ошибка: {e}"
-
-
-def check_balance(api_key: str) -> str:
-    try:
-        giga = GigaChat(
-            credentials=api_key,
-            verify_ssl_certs=False
-        )
-
-        balance = str(giga.get_balance()).split("balance=", 1)[-1].strip()
-
-        match = re.search(r"GigaChat-Pro', value=(\d+\.\d+)", balance)
-        if match:
-            pro_value = float(match.group(1))
-
-        match = re.search(r"GigaChat-Max', value=(\d+\.\d+)", balance)
-        if match:
-            max_value = float(match.group(1))
-
-        match = re.search(r"GigaChat', value=(\d+\.\d+)", balance)
-        if match:
-            lite_value = float(match.group(1))
-
-        result = {
-            "Max": max_value,
-            "Pro": pro_value,
-            "Lite": lite_value
-        }
-
-        def get_result():
-            print(result)
-        check_balance.result = get_result
-
-        if result['Lite'] >= 1000:
-            return 'Lite'
-        elif result['Pro'] >= 1000:
-            return 'Pro'
-        elif result['Max'] >= 1000:
-            return 'Max'
-        else: return 'No more tokens'
-
-    except GigaChatException as e:
-        return f"Ошибка GigaChat: {e}"
-    except Exception as e:
-        return f"Общая ошибка: {e}"
-
 
 @app.route('/')
 def home():
@@ -83,15 +12,45 @@ def home():
 
 @app.route('/get_fact')
 def get_fact():
-    with open("../.venv/Authorization Key", "r", encoding="utf-8") as f:
+
+    with open("../.venv/OpenRouterKey", "r", encoding="utf-8") as f:
         api_key = f.read().strip()
 
-    model = check_balance(api_key)
-    if model == 'No more tokens':
-        return jsonify({"error": "Лимит запросов исчерпан"})
+    randomTheme = [
+        "из истории",
+        "из астрономии",
+        "из физики",
+        "из спорта",
+        "из географии",
+        "из биологии",
+        "из науки",
+        "про какую-нибудь страну",
+        "из природы",
+        "из мира животных",
+        "из автоспорта",
+        "из велоспорта",
+        "про технологии"
+    ]
 
-    question = "Расскажи случайный мировой факт"
-    answer = ask_gigachat(question, api_key, models[model])
+    message = "Расскажи один любой факт или теорию " + random.choice(randomTheme)
+
+    client = OpenAI(
+        base_url="https://openrouter.ai/api/v1",
+        api_key=api_key,
+    )
+
+    completion = client.chat.completions.create(
+        extra_body={},
+        model="deepseek/deepseek-r1:free",
+        messages=[
+            {
+                "role": "user",
+                "content": message
+            }
+        ]
+    )
+    answer = completion.choices[0].message.content
+    print(answer)
     return jsonify({"fact": answer})
 
 
